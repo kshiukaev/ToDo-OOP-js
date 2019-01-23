@@ -11,7 +11,7 @@ class View {
   }
 
   createElement(todo){
-    const chechbox = createElement('input', { type: 'checkbox', className: 'checkbox', checked.completed ? 'checked' : ''});
+    const chechbox = createElement('input', { type: 'checkbox', className: 'checkbox', checked: todo.completed ? 'checked' : ''});
     const label = createElement('label', { className: 'title' }, todo.title);
     const editInput = createElement('input', { type: 'text', className: 'textField'});
     const editButton = createElement('button', { className: 'edit' }, 'Изменить');
