@@ -1,8 +1,10 @@
-import { createElement } from './helpers.js';
-import { threadId } from 'worker_threads';
+import { createElement, EventEmitter } from './helpers.js';
+//import { threadId } from 'worker_threads';
 
-class View {
+class View extends EventEmitter{
   constructor() {
+    super();
+    
     this.form = document.getElementById('todo-form');
     this.input = document.getElementById('add-input');
     this.list = document.getElementById('todo-list');
@@ -40,6 +42,7 @@ class View {
 
     const value = this.input.value;
 
+    this.emit('add', value);
     // add item to model
   }
 
@@ -48,6 +51,7 @@ class View {
     const id = listItem.getAttribute('data-id');
     const completed = target.completed; 
 
+    this.emit('toggle', { id, completed });
     // update model
   }
 
@@ -61,7 +65,7 @@ class View {
     const isEditing = listItem.classList.contains('editing');
 
     if(isEditing){
-      // update model
+      this.emit('edit', { id, title});
     } else {
       input.value = label.textContent;
       editButton.textContent = 'Сохранить';
@@ -71,7 +75,8 @@ class View {
   handleRemove({ target }){
     const listItem = target.parentNode;
     const id = listItem.getAttribute('data-id');
-    // remove item from Model
+    
+    this.emit('remove', id);
   }
   findListItem(id){
     return this.list.querySelector(`[data-id="${id}"`);
@@ -81,6 +86,8 @@ class View {
 
     this.input.value = '';
     this.list.appendChild(listItem);
+
+    return item;
   }
 
   toggleItem(todo){

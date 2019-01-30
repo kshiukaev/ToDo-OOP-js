@@ -1,7 +1,13 @@
 function createElement(tag, props, ...children) {
     const element = document.createElement(tag);
 
-    Object.keys(props).forEach(key => element[key] = props[key]);
+    Object.keys(props).forEach(key => {
+        if(key.startsWith('data-')){
+            element.setAttribute(key, props[key]);
+        } else {
+            element[key] = props[key];
+        }
+    });
 
     children.forEach(child => {
         if (typeof child === 'string') {
@@ -13,5 +19,19 @@ function createElement(tag, props, ...children) {
 
     return element;
 }
+class EventEmitter{
+    constructor(){
+        this.events = {};
+    }
 
-export { createElement };
+    on(type, listener){
+        this.events[type] = this.events[type] || [];
+        this.events[type].push(listener);
+    }
+    emit(type, arg){
+        if(this.event[type]){
+            this.events[type].forEach(listener => listener(arg));
+        }
+    }
+}
+export { createElement, EventEmitter };
