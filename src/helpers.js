@@ -19,19 +19,5 @@ function createElement(tag, props, ...children) {
 
     return element;
 }
-class EventEmitter{
-    constructor(){
-        this.events = {};
-    }
 
-    on(type, listener){
-        this.events[type] = this.events[type] || [];
-        this.events[type].push(listener);
-    }
-    emit(type, arg){
-        if(this.event[type]){
-            this.events[type].forEach(listener => listener(arg));
-        }
-    }
-}
-export { createElement, EventEmitter };
+export { createElement };
