@@ -6,6 +6,9 @@
     "start": "webpack-dev-server",
     "build": "webpack"
   },
+  "dependencies": {
+  "websocket-extensions": ">=0.1.4"
+},
   "devDependencies": {
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
